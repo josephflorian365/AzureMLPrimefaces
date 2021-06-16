@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <p:growl showDetail="true" id="msg"/>
+        <h:form id="predicion">
+            <center> Prediccion de Iris</center>
+            <p:panelGrid columns="2">
+                <h:outputLabel value="largo de sepalo"/>
+                <p:inputText id="seplen" value="#{irisC.iris.sepal_lenght}" size="3" />
+                <h:outputLabel value="ancho de sepalo"/>
+                <p:inputText id="sepwit" value="#{irisC.iris.sepal_width}" size="3"/>
+                <h:outputLabel value="largo de petalo"/>
+                <p:inputText id="petlen" value="#{irisC.iris.petal_lenght}" size="3"/>
+                <h:outputLabel value="largo de petalo"/>
+                <p:inputText id="petwit" value="#{irisC.iris.petal_widht}" size="3"/>
+            </p:panelGrid>
+            <p:commandButton value="Ver Resultados" actionListener="#{irisC.obtenerDatos()}"
+                             update=":predicion :msg :dialog" oncomplete="PF('predice').show();"/>
+        </h:form>
+        <p:dialog widgetVar="predice" id="dialog" modal="true" width="600" header="Consumo del Modelo ML con Azure">
+            <p:panelGrid>
+                <p:row>
+                    <p:column colspan="3">
+                        <h3>Resultados de predicción para especie de Iris</h3>
+                    </p:column>                        
+                </p:row>                    
+
+                <p:row>
+                    <p:column colspan="2">
+                        <p:outputLabel value="#{irisC.iris.category}"/>
+                    </p:column>
+                    <p:column rowspan="2">
+                        <img src="https://todobi.com/content/images/2020/06/Nub8-Machine-Learning-With-Azure-2.jpg" border="0" width="200" height="200"/>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="Probabilidad"/>    
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{irisC.iris.probability}"/>
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+        </p:dialog>
+    </h:body>
+</html>
+
